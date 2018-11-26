@@ -10,7 +10,7 @@ extern "C" {
 Context* contexts[2];
 
 int main(int argc, char const *argv[]) {
-    printf("[WASM] Loaded\n");
+    printf("[WASM] XUI KEK\n");
 
     EM_ASM(
         if (typeof window!="undefined") {
@@ -25,7 +25,6 @@ int main(int argc, char const *argv[]) {
 
 
 extern "C" {
-
     EMSCRIPTEN_KEEPALIVE
     void clearContexts (void) {
         if (contexts[0]) delete contexts[0];
@@ -55,3 +54,5 @@ extern "C" {
     }
 
 }
+
+

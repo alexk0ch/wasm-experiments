@@ -1,6 +1,5 @@
 module.exports = grunt => {
     grunt.initConfig({
-
         uglify: {
             my_target: {
                 options: {
@@ -14,20 +13,19 @@ module.exports = grunt => {
         },
 
         exec: {
-            build: "C:/emsdk/emsdk_env.bat & echo Building... & emcc -o ./dist/appWASM.js ./dev/cpp/emscripten.cpp -O3 -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s WASM=1 -s NO_EXIT_RUNTIME=1 -std=c++1z"
+            build: "~/Projects/emsdk/emsdk_env.sh & echo Building... & emcc -o ./dist/appWASM.js ./dev/cpp/emscripten.cpp -O3 -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s WASM=1 -s NO_EXIT_RUNTIME=1 -std=c++1z -s \"EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap', 'stringToUTF8']\""
         },
 
         watch: {
             cpp: {
                 files: ["dev/cpp/*.cpp", "dev/cpp/*.h"],
-                tasks: ["exec:build", "uglify"]
+                tasks: ["exec:build"]
             }
         }
-    })
+    });
 
-    grunt.loadNpmTasks("grunt-contrib-watch")
-    grunt.loadNpmTasks('grunt-contrib-uglify')
-    grunt.loadNpmTasks("grunt-exec")
+    grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks("grunt-exec");
 
-    grunt.registerTask("default", ["watch"])
-}
+    grunt.registerTask("default", ["exec:build", "watch"]);
+};
